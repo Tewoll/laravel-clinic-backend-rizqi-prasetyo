@@ -67,7 +67,8 @@
                                                 <td>{{ $doctor->email }}</td>
                                                 <td>{{ $doctor->address }}</td>
                                                 <td>{{ $doctor->shift }}</td>
-                                                <td>{{ $doctor->created_at }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($doctor->created_at)->translatedFormat('d F Y, H:i') }}
+                                                </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('doctor.edit', $doctor->id) }}'
@@ -124,11 +125,7 @@
                     "targets": [3, 4, 5, 6, 7, 8]
                 }],
             });
-        });
-    </script>
 
-    <script>
-        $(document).ready(function() {
             $('.confirm-delete').on('click', function(e) {
                 e.preventDefault();
                 var form = $(this).closest('form');
