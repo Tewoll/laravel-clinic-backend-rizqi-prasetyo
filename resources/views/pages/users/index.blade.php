@@ -80,13 +80,13 @@
                                                     <td>
                                                         {{ $user->phone }}
                                                     </td>
-                                                    <td>{{ $user->created_at }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y, H:i') }}
+                                                    </td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
                                                             <a href='{{ route('user.edit', $user->id) }}'
                                                                 class="btn btn-sm btn-info btn-icon">
                                                                 <i class="fas fa-edit"></i>
-                                                                Edit
                                                             </a>
                                                             <form action="{{ route('user.destroy', $user->id) }}"
                                                                 method="POST" class="ml-2">
@@ -95,7 +95,7 @@
                                                                     value="{{ csrf_token() }}" />
                                                                 <button
                                                                     class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                    <i class="fas fa-times"></i> Delete
+                                                                    <i class="fas fa-trash"></i>
                                                                 </button>
                                                             </form>
                                                         </div>
@@ -118,12 +118,6 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/features-posts.js') }}"></script>
-
     <script src="https://demo.getstisla.com/assets/modules/datatables/datatables.min.js"></script>
     <script src="https://demo.getstisla.com/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js">
     </script>
@@ -149,11 +143,7 @@
                     "targets": [2, 3, 4, 5]
                 }],
             });
-        });
-    </script>
 
-    <script>
-        $(document).ready(function() {
             $('.confirm-delete').on('click', function(e) {
                 e.preventDefault();
                 var form = $(this).closest('form');
